@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="bg_navy">#10151d</color>
+    <color name="surface_navy">#18202c</color>
+    <color name="surface_card">#212b38</color>
+    <color name="accent_amber">#e3a94c</color>
+    <color name="accent_dim">#c98f38</color>
+    <color name="text_white">#e8edf4</color>
+    <color name="text_dim">#8894a3</color>
+    <color name="line_dark">#2a3544</color>
+    <color name="progress_bar">#e3a94c</color>
+</resources>

@@ -1,0 +1,19 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <style name="Theme.HojakPortal" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <!-- Primary brand color. -->
+        <item name="colorPrimary">@color/accent_amber</item>
+        <item name="colorPrimaryVariant">@color/accent_dim</item>
+        <item name="colorOnPrimary">@color/bg_navy</item>
+
+        <!-- Secondary brand color. -->
+        <item name="colorSecondary">@color/accent_amber</item>
+        <item name="colorSecondaryVariant">@color/accent_dim</item>
+        <item name="colorOnSecondary">@color/bg_navy</item>
+
+        <!-- Status bar and Navigation bar color. -->
+        <item name="android:statusBarColor">@color/bg_navy</item>
+        <item name="android:navigationBarColor">@color/bg_navy</item>
+        <item name="android:windowBackground">@color/bg_navy</item>
+        <item name="android:windowLightStatusBar" tools:targetApi="m">false</item>
+    </style>
+</resources>
