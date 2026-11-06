@@ -20,6 +20,9 @@ import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowInsetsCompat
+import androidx.core.view.updatePadding
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
@@ -58,9 +61,24 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        val rootLayout = findViewById<View>(R.id.rootLayout)
         progressBar = findViewById(R.id.progressBar)
         webContainer = findViewById(R.id.webContainer)
         bottomNav = findViewById(R.id.bottomNav)
+
+        // 시스템 바(상단 상태바, 하단 제스처 내비게이션 바) 안전 영역(WindowInsets) 동적 패딩 적용
+        ViewCompat.setOnApplyWindowInsetsListener(rootLayout) { _, insets ->
+            val statusBarInset = insets.getInsets(WindowInsetsCompat.Type.statusBars())
+            val navBarInset = insets.getInsets(WindowInsetsCompat.Type.navigationBars())
+
+            // 상단 여백: 상태바 높이만큼 상단 패딩 적용 (상태바와 웹뷰 콘텐츠 겹침 방지 및 쾌적한 상단 여백)
+            rootLayout.updatePadding(top = statusBarInset.top)
+
+            // 하단 여백: 시스템 제스처바/내비게이션바 높이만큼 바텀 내비게이션 하단 패딩 적용 (글자 겹침 방지)
+            bottomNav.updatePadding(bottom = navBarInset.bottom)
+
+            insets
+        }
 
         setupWebViews()
         setupBottomNav()

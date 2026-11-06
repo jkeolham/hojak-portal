@@ -12,8 +12,21 @@
 
         <!-- Status bar and Navigation bar color. -->
         <item name="android:statusBarColor">@color/bg_navy</item>
-        <item name="android:navigationBarColor">@color/bg_navy</item>
+        <item name="android:navigationBarColor">@color/surface_navy</item>
         <item name="android:windowBackground">@color/bg_navy</item>
         <item name="android:windowLightStatusBar" tools:targetApi="m">false</item>
+    </style>
+
+    <!-- 바텀 네비게이션 텍스트 레이블 스타일 (11sp 명시로 아이콘 겹침 방지) -->
+    <style name="NavTextActive" parent="TextAppearance.MaterialComponents.Caption">
+        <item name="android:textSize">11sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:fontFamily">sans-serif-medium</item>
+    </style>
+
+    <style name="NavTextInactive" parent="TextAppearance.MaterialComponents.Caption">
+        <item name="android:textSize">11sp</item>
+        <item name="android:textStyle">normal</item>
+        <item name="android:fontFamily">sans-serif</item>
     </style>
 </resources>

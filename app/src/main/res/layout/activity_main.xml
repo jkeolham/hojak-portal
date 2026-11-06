@@ -2,6 +2,7 @@
 <androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/rootLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/bg_navy">
@@ -32,12 +33,18 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
-    <!-- 하단 바텀 네비게이션 바 -->
+    <!-- 하단 바텀 네비게이션 바 (높이 wrap_content, 최소 64dp, 아이콘/텍스트 분리 패딩) -->
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottomNav"
         android:layout_width="match_parent"
-        android:layout_height="56dp"
+        android:layout_height="wrap_content"
+        android:minHeight="64dp"
         android:background="@color/surface_navy"
+        app:itemIconSize="22dp"
+        app:itemPaddingTop="8dp"
+        app:itemPaddingBottom="8dp"
+        app:itemTextAppearanceActive="@style/NavTextActive"
+        app:itemTextAppearanceInactive="@style/NavTextInactive"
         app:itemIconTint="@color/nav_item_color"
         app:itemTextColor="@color/nav_item_color"
         app:itemRippleColor="#20e3a94c"
