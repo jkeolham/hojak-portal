@@ -12,4 +12,8 @@
         android:id="@+id/menu_recipes"
         android:icon="@drawable/ic_nav_recipe"
         android:title="레시피" />
+    <item
+        android:id="@+id/menu_season"
+        android:icon="@drawable/ic_nav_season"
+        android:title="2027추천" />
 </menu>

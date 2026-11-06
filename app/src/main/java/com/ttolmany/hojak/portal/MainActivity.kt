@@ -32,6 +32,7 @@ class MainActivity : AppCompatActivity() {
         private const val URL_DIARY = "https://jkeol-ubuntu.tail364926.ts.net:8790"
         private const val URL_BOATS = "https://jkeolham.github.io/hojak-boats/"
         private const val URL_RECIPES = "https://jkeolham.github.io/hojak-recipes/"
+        private const val URL_SEASON = "https://jkeolham.github.io/hojak-season-2027/"
 
         private val HOJAK_DOMAINS = listOf(
             "tail364926.ts.net",
@@ -45,14 +46,16 @@ class MainActivity : AppCompatActivity() {
     private lateinit var webContainer: FrameLayout
     private lateinit var bottomNav: BottomNavigationView
 
-    // 3개 탭 각각의 독립된 컨테이너 (SwipeRefreshLayout + WebView)
+    // 4개 탭 각각의 독립된 컨테이너 (SwipeRefreshLayout + WebView)
     private lateinit var diarySwipe: SwipeRefreshLayout
     private lateinit var boatsSwipe: SwipeRefreshLayout
     private lateinit var recipesSwipe: SwipeRefreshLayout
+    private lateinit var seasonSwipe: SwipeRefreshLayout
 
     private lateinit var diaryWebView: WebView
     private lateinit var boatsWebView: WebView
     private lateinit var recipesWebView: WebView
+    private lateinit var seasonWebView: WebView
 
     private var currentTabId = R.id.menu_diary
     private var lastBackPressTime = 0L
@@ -105,6 +108,13 @@ class MainActivity : AppCompatActivity() {
         recipesWebView = rWv
         recipesSwipe.visibility = View.GONE
         webContainer.addView(recipesSwipe)
+
+        // 4. 2027 쭈갑시즌 예약 추천일
+        val (sSwipe, sWv) = createWebViewTab(URL_SEASON)
+        seasonSwipe = sSwipe
+        seasonWebView = sWv
+        seasonSwipe.visibility = View.GONE
+        webContainer.addView(seasonSwipe)
     }
 
     @SuppressLint("SetJavaScriptEnabled")
@@ -237,6 +247,7 @@ class MainActivity : AppCompatActivity() {
             diarySwipe.visibility = if (currentTabId == R.id.menu_diary) View.VISIBLE else View.GONE
             boatsSwipe.visibility = if (currentTabId == R.id.menu_boats) View.VISIBLE else View.GONE
             recipesSwipe.visibility = if (currentTabId == R.id.menu_recipes) View.VISIBLE else View.GONE
+            seasonSwipe.visibility = if (currentTabId == R.id.menu_season) View.VISIBLE else View.GONE
 
             progressBar.visibility = View.GONE
             true
@@ -247,6 +258,7 @@ class MainActivity : AppCompatActivity() {
         return when (currentTabId) {
             R.id.menu_boats -> boatsWebView
             R.id.menu_recipes -> recipesWebView
+            R.id.menu_season -> seasonWebView
             else -> diaryWebView
         }
     }
