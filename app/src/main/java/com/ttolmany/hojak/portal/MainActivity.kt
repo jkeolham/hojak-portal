@@ -8,6 +8,7 @@ import android.net.http.SslError
 import android.os.Bundle
 import android.view.View
 import android.view.ViewGroup
+import android.webkit.CookieManager
 import android.webkit.SslErrorHandler
 import android.webkit.WebChromeClient
 import android.webkit.WebResourceRequest
@@ -139,6 +140,11 @@ class MainActivity : AppCompatActivity() {
                 ViewGroup.LayoutParams.MATCH_PARENT
             )
             setBackgroundColor(ContextCompat.getColor(this@MainActivity, R.color.bg_navy))
+
+            CookieManager.getInstance().let { cm ->
+                cm.setAcceptCookie(true)
+                cm.setAcceptThirdPartyCookies(this, true)
+            }
 
             settings.apply {
                 javaScriptEnabled = true
@@ -292,10 +298,30 @@ class MainActivity : AppCompatActivity() {
         })
     }
 
+    override fun onPause() {
+        super.onPause()
+        // 웹 스토리지 및 쿠키의 디스크 즉시 동기화(Flush)
+        CookieManager.getInstance().flush()
+        if (::diaryWebView.isInitialized) diaryWebView.onPause()
+        if (::boatsWebView.isInitialized) boatsWebView.onPause()
+        if (::recipesWebView.isInitialized) recipesWebView.onPause()
+        if (::seasonWebView.isInitialized) seasonWebView.onPause()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        if (::diaryWebView.isInitialized) diaryWebView.onResume()
+        if (::boatsWebView.isInitialized) boatsWebView.onResume()
+        if (::recipesWebView.isInitialized) recipesWebView.onResume()
+        if (::seasonWebView.isInitialized) seasonWebView.onResume()
+    }
+
     override fun onDestroy() {
         super.onDestroy()
-        diaryWebView.destroy()
-        boatsWebView.destroy()
-        recipesWebView.destroy()
+        CookieManager.getInstance().flush()
+        if (::diaryWebView.isInitialized) diaryWebView.destroy()
+        if (::boatsWebView.isInitialized) boatsWebView.destroy()
+        if (::recipesWebView.isInitialized) recipesWebView.destroy()
+        if (::seasonWebView.isInitialized) seasonWebView.destroy()
     }
 }
