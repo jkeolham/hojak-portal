@@ -16,4 +16,8 @@
         android:id="@+id/menu_season"
         android:icon="@drawable/ic_nav_season"
         android:title="2027추천" />
+    <item
+        android:id="@+id/menu_openrun"
+        android:icon="@drawable/ic_nav_openrun"
+        android:title="오픈런" />
 </menu>

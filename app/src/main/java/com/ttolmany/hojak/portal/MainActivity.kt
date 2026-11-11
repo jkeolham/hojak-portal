@@ -34,6 +34,7 @@ class MainActivity : AppCompatActivity() {
         private const val URL_BOATS = "https://jkeolham.github.io/hojak-boats/"
         private const val URL_RECIPES = "https://jkeolham.github.io/hojak-recipes/"
         private const val URL_SEASON = "https://jkeolham.github.io/hojak-season-2027/"
+        private const val URL_OPENRUN = "https://jkeolham.github.io/hojak-season-2027/openrun.html"
 
         private val HOJAK_DOMAINS = listOf(
             "tail364926.ts.net",
@@ -47,16 +48,18 @@ class MainActivity : AppCompatActivity() {
     private lateinit var webContainer: FrameLayout
     private lateinit var bottomNav: BottomNavigationView
 
-    // 4개 탭 각각의 독립된 컨테이너 (SwipeRefreshLayout + WebView)
+    // 5개 탭 각각의 독립된 컨테이너 (SwipeRefreshLayout + WebView)
     private lateinit var diarySwipe: SwipeRefreshLayout
     private lateinit var boatsSwipe: SwipeRefreshLayout
     private lateinit var recipesSwipe: SwipeRefreshLayout
     private lateinit var seasonSwipe: SwipeRefreshLayout
+    private lateinit var openrunSwipe: SwipeRefreshLayout
 
     private lateinit var diaryWebView: WebView
     private lateinit var boatsWebView: WebView
     private lateinit var recipesWebView: WebView
     private lateinit var seasonWebView: WebView
+    private lateinit var openrunWebView: WebView
 
     private var currentTabId = R.id.menu_diary
     private var lastBackPressTime = 0L
@@ -116,6 +119,13 @@ class MainActivity : AppCompatActivity() {
         seasonWebView = sWv
         seasonSwipe.visibility = View.GONE
         webContainer.addView(seasonSwipe)
+
+        // 5. 2027 쭈갑 오픈런 선사 예약 작전판
+        val (oSwipe, oWv) = createWebViewTab(URL_OPENRUN)
+        openrunSwipe = oSwipe
+        openrunWebView = oWv
+        openrunSwipe.visibility = View.GONE
+        webContainer.addView(openrunSwipe)
     }
 
     @SuppressLint("SetJavaScriptEnabled")
@@ -254,6 +264,7 @@ class MainActivity : AppCompatActivity() {
             boatsSwipe.visibility = if (currentTabId == R.id.menu_boats) View.VISIBLE else View.GONE
             recipesSwipe.visibility = if (currentTabId == R.id.menu_recipes) View.VISIBLE else View.GONE
             seasonSwipe.visibility = if (currentTabId == R.id.menu_season) View.VISIBLE else View.GONE
+            openrunSwipe.visibility = if (currentTabId == R.id.menu_openrun) View.VISIBLE else View.GONE
 
             progressBar.visibility = View.GONE
             true
@@ -265,6 +276,7 @@ class MainActivity : AppCompatActivity() {
             R.id.menu_boats -> boatsWebView
             R.id.menu_recipes -> recipesWebView
             R.id.menu_season -> seasonWebView
+            R.id.menu_openrun -> openrunWebView
             else -> diaryWebView
         }
     }
@@ -306,6 +318,7 @@ class MainActivity : AppCompatActivity() {
         if (::boatsWebView.isInitialized) boatsWebView.onPause()
         if (::recipesWebView.isInitialized) recipesWebView.onPause()
         if (::seasonWebView.isInitialized) seasonWebView.onPause()
+        if (::openrunWebView.isInitialized) openrunWebView.onPause()
     }
 
     override fun onResume() {
@@ -314,6 +327,7 @@ class MainActivity : AppCompatActivity() {
         if (::boatsWebView.isInitialized) boatsWebView.onResume()
         if (::recipesWebView.isInitialized) recipesWebView.onResume()
         if (::seasonWebView.isInitialized) seasonWebView.onResume()
+        if (::openrunWebView.isInitialized) openrunWebView.onResume()
     }
 
     override fun onDestroy() {
@@ -323,5 +337,6 @@ class MainActivity : AppCompatActivity() {
         if (::boatsWebView.isInitialized) boatsWebView.destroy()
         if (::recipesWebView.isInitialized) recipesWebView.destroy()
         if (::seasonWebView.isInitialized) seasonWebView.destroy()
+        if (::openrunWebView.isInitialized) openrunWebView.destroy()
     }
 }
